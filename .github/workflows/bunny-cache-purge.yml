@@ -1,0 +1,16 @@
+name: Bunny CDN Cache Purge
+
+on:
+  schedule:
+    - cron: '30 7,10,11 * * *'  # Runs at 07:30, 10:30, 11:30 UTC daily
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  purge-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Bunny CDN Cache
+        uses: eayllon/bunnycdn-purge-cache@main
+        with:
+          accessKey: ${{ secrets.BUNNY_API_KEY }}
+          zoneID: ${{ secrets.BUNNY_ZONE_ID }}
